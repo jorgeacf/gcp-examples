@@ -17,3 +17,9 @@ jobs:
         filename: 'release.zip'
         directory: 'cloud-functions/java'
         exclusions: '*.git* /*node_modules/* .editorconfig'
+    - name: Create Release
+      uses: ncipollo/release-action@v1
+      with:
+        artifacts: "release.zip"
+        bodyFile: "body.md"
+        token: ${{ secrets.GITHUB_TOKEN }}
