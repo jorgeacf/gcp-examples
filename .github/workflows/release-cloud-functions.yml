@@ -1,4 +1,4 @@
-name: Create Archive
+name: Create GCP Cloud Functions releases
 
 on:
   push:
@@ -11,19 +11,26 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@master
-    - name: Archive Release
+
+    - name: Zip Java Cloud Functions
       uses: thedoctor0/zip-release@master
       with:
-        filename: 'release.zip'
+        filename: 'cloud-functions-java-release.zip'
         directory: 'cloud-functions/java'
-        exclusions: '*.git* /*node_modules/* .editorconfig'
+
+    - name: Zip Python Cloud Functions
+      uses: thedoctor0/zip-release@master
+      with:
+        filename: 'cloud-functions-python-release.zip'
+        directory: 'cloud-functions/python'
+
     - name: Create Release
       uses: "marvinpinto/action-automatic-releases@latest"
       with:
         repo_token: "${{ secrets.GITHUB_TOKEN }}"
         automatic_release_tag: "latest"
         prerelease: true
-        title: "Development Build"
+        title: "GCP - Cloud Functions"
         files: |
           LICENSE.txt
           **/*.zip
