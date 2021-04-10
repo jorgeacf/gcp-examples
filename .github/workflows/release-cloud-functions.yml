@@ -18,8 +18,12 @@ jobs:
         directory: 'cloud-functions/java'
         exclusions: '*.git* /*node_modules/* .editorconfig'
     - name: Create Release
-      uses: ncipollo/release-action@v1
+      uses: "marvinpinto/action-automatic-releases@latest"
       with:
-        artifacts: "release.zip"
-        bodyFile: "body.md"
-        token: ${{ secrets.GITHUB_TOKEN }}
+        repo_token: "${{ secrets.GITHUB_TOKEN }}"
+        automatic_release_tag: "latest"
+        prerelease: true
+        title: "Development Build"
+        files: |
+          LICENSE.txt
+          *.zip
